@@ -16,7 +16,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
   `)
-  
+
   if (result.errors) {
     console.log(result.errors)
   }
@@ -26,6 +26,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `${edge.node.slug}`,
       component: blogPostTemplate,
       context: {
+        slug: edge.node.slug,
         title: edge.node.title
       }
     })

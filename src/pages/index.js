@@ -10,7 +10,14 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h1>Hi people</h1>
+      <h1>Hi people</h1>  
+      <ul>
+        {edges.map(({node}) => {
+          return (
+            <li key={node.slug}><Link to={node.slug}>{node.title}</Link></li>
+          )
+        })}
+      </ul>
     </Layout>
   )
 }

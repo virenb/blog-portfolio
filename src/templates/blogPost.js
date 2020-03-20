@@ -6,15 +6,15 @@ import SEO from "../components/seo"
 const BlogPost = ({ data }) => {
   const { title, content, date, tags } = data.contentfulBlogPost;
   return (
-  <Layout>
-    <SEO title={title} />
-    <h1>{title}</h1>
-    <h3>{date}</h3>
-    <div>
-      {content.content}
-    </div>
-    <div>{tags}</div>
-    <Link to="/">Go Home</Link>
+    <Layout>
+      <SEO title={title} />
+      <h1>{title}</h1>
+      <h3>{date}</h3>
+      <div>
+        {content.content}
+      </div>
+      <div>{tags}</div>
+      <Link to="/">Go Home</Link>
     </Layout>
   )
 }

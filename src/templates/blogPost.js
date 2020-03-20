@@ -9,10 +9,8 @@ const BlogPost = ({ data }) => {
     <Layout>
       <SEO title={title} />
       <h1>{title}</h1>
-      <h3>{date}</h3>
-      <div>
-        {content.content}
-      </div>
+      <h3>{new Date(date).toLocaleDateString()}</h3>
+      <div dangerouslySetInnerHTML={{ __html: content.childMarkdownRemark.html }} />
       <div>{tags}</div>
       <Link to="/">Go Home</Link>
     </Layout>
@@ -29,7 +27,9 @@ export const pageQuery = graphql`
       date
       tags
       content {
-        content
+        childMarkdownRemark {
+          html
+        }
       }
     }
   }

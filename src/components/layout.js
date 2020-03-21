@@ -24,7 +24,7 @@ const Title = styled.h1`
 
 const StyledLink = styled(props => <Link {...props} />)`
   text-decoration: none;
-  color: darkseagreen;
+  color: seagreen;
 `
 
 const MainContainer = styled.main`

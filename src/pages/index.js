@@ -5,7 +5,8 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const Button = styled.button`
-  font-size: 1em;
+  font-size: .9rem;
+  font-family: -apple-system;
   color: white;
   margin: .8rem .5rem;
   padding: 0.25em 1em;
@@ -23,6 +24,12 @@ const GHButton = styled(Button)`
 
 const LIButton = styled(Button)`
   background-color: #2867b2;
+`
+
+const Anchor = styled.a`
+  text-decoration: none;
+  color: white;
+
 `
 
 const IndexPage = ({ data }) => {
@@ -47,9 +54,9 @@ const IndexPage = ({ data }) => {
           margin: `1rem`
         }}
       >
-        <TButton>Twitter</TButton>
-        <GHButton>GitHub</GHButton>
-        <LIButton>LinkedIn</LIButton>
+        <TButton><Anchor href="https://twitter.com/virengb" target="_blank">Twitter</Anchor></TButton>
+        <GHButton><Anchor href="https://github.com/virenb" target="_blank">GitHub</Anchor></GHButton>
+          <LIButton><Anchor href="https://linkedin.com/in/vbhagat" target="_blank">LinkedIn</Anchor></LIButton>
       </div>
       <h3>Blog Posts</h3>
       <ul>

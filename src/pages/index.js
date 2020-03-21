@@ -10,7 +10,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h1>Hej World</h1>
+      <h2>Hej World</h2>
       <div>
         <p>My name is Viren, I am a developer. I like to write (below) about things
         I'm learning or working with. If you would like to reach out, please send me

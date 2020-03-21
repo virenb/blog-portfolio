@@ -10,7 +10,19 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h1>Hi people</h1>  
+      <h1>Hej World</h1>
+      <div>
+        <p>My name is Viren, I am a developer. I like to write (below) about things
+        I'm learning or working with. If you would like to reach out, please send me
+        a message at virenb@gmail.com.
+        </p>
+      </div>
+      <div>
+        <button>Twitter</button>
+        <button>GitHub</button>
+        <button>LinkedIn</button>
+      </div>
+      <h3>Blog Posts</h3>
       <ul>
         {edges.map(({node}) => {
           return (

@@ -32,7 +32,17 @@ const Anchor = styled.a`
 `
 const AnchorEmail = styled(Anchor)`
   color: #000000;
+  font-weight: 700; 
+`
+
+const BlogList = styled.ul`
+  list-style-type: lower-roman;
+`
+
+const BlogLink = styled(props => <Link {...props} />)`
   font-weight: 700;
+  font-size: 1.1rem;
+  padding-right: 0.5rem;
 `
 
 const IndexPage = ({ data }) => {
@@ -55,16 +65,19 @@ const IndexPage = ({ data }) => {
       >
         <TButton><Anchor href="https://twitter.com/virengb" target="_blank">Twitter</Anchor></TButton>
         <GHButton><Anchor href="https://github.com/virenb" target="_blank">GitHub</Anchor></GHButton>
-          <LIButton><Anchor href="https://linkedin.com/in/vbhagat" target="_blank">LinkedIn</Anchor></LIButton>
+        <LIButton><Anchor href="https://linkedin.com/in/vbhagat" target="_blank">LinkedIn</Anchor></LIButton>
       </div>
       <h3>Blog Posts</h3>
-      <ul>
+      <BlogList>
         {edges.map(({node}) => {
           return (
-            <li key={node.slug}><Link to={node.slug}>{node.title}</Link></li>
+            <li key={node.slug}>
+              <BlogLink to={node.slug}>{node.title}</BlogLink>
+                {new Date(node.date).toLocaleDateString()}
+            </li>
           )
         })}
-      </ul>
+      </BlogList>
     </Layout>
   )
 }

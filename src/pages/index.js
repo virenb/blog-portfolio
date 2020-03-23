@@ -28,8 +28,21 @@ const LIButton = styled(Button)`
 
 const Anchor = styled.a`
   text-decoration: none;
-  color: white;
+  color: #ffffff;
+`
+const AnchorEmail = styled(Anchor)`
+  color: #000000;
+  font-weight: 700; 
+`
 
+const BlogList = styled.ul`
+  list-style-type: lower-roman;
+`
+
+const BlogLink = styled(props => <Link {...props} />)`
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding-right: 0.5rem;
 `
 
 const IndexPage = ({ data }) => {
@@ -40,34 +53,31 @@ const IndexPage = ({ data }) => {
       <SEO title="Home" />
       <h2>Hej World</h2>
       <div>
-        <p style={{
-          marginBottom: `1rem`
-        }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-          rure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <p>
+          Like to learn and write about software and web related technologies. 
+          Say <AnchorEmail href="mailto:virenb@gmail.com" target="_blank">hello</AnchorEmail> at virenb@gmail.com.
         </p>
       </div>
       <div
         style={{
-          margin: `1rem`
+          margin: `-1rem 0 1rem 0`
         }}
       >
         <TButton><Anchor href="https://twitter.com/virengb" target="_blank">Twitter</Anchor></TButton>
         <GHButton><Anchor href="https://github.com/virenb" target="_blank">GitHub</Anchor></GHButton>
-          <LIButton><Anchor href="https://linkedin.com/in/vbhagat" target="_blank">LinkedIn</Anchor></LIButton>
+        <LIButton><Anchor href="https://linkedin.com/in/vbhagat" target="_blank">LinkedIn</Anchor></LIButton>
       </div>
       <h3>Blog Posts</h3>
-      <ul>
+      <BlogList>
         {edges.map(({node}) => {
           return (
-            <li key={node.slug}><Link to={node.slug}>{node.title}</Link></li>
+            <li key={node.slug}>
+              <BlogLink to={node.slug}>{node.title}</BlogLink>
+                {new Date(node.date).toLocaleDateString()}
+            </li>
           )
         })}
-      </ul>
+      </BlogList>
     </Layout>
   )
 }

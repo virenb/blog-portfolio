@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -12,7 +12,6 @@ const BlogPost = ({ data }) => {
       <h3>{new Date(date).toLocaleDateString()}</h3>
       <div dangerouslySetInnerHTML={{ __html: content.childMarkdownRemark.html }} />
       <div>{tags}</div>
-      <Link to="/">Go Home</Link>
     </Layout>
   )
 }

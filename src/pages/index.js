@@ -54,7 +54,7 @@ const IndexPage = ({ data }) => {
       <h2>Hej World</h2>
       <div>
         <p>
-          Like to learn and write about software and web related technologies. 
+          I like to learn and write about software and web related technologies. 
           Say <AnchorEmail href="mailto:virenb@gmail.com" target="_blank">hello</AnchorEmail> at virenb@gmail.com.
         </p>
       </div>
@@ -65,7 +65,7 @@ const IndexPage = ({ data }) => {
       >
         <TButton><Anchor href="https://twitter.com/virengb" target="_blank">Twitter</Anchor></TButton>
         <GHButton><Anchor href="https://github.com/virenb" target="_blank">GitHub</Anchor></GHButton>
-        <LIButton><Anchor href="https://linkedin.com/in/vbhagat" target="_blank">LinkedIn</Anchor></LIButton>
+        <LIButton><Anchor href="https://www.linkedin.com/in/virenbhagat/" target="_blank">LinkedIn</Anchor></LIButton>
       </div>
       <h3>Blog Posts</h3>
       <BlogList>

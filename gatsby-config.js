@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `Viren Bhagat`,
     description: `Viren Bhagat's portfolio and blog`,
-    author: `@virenb`,
+    author: `@virengb`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -24,13 +24,44 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Viren Bhagat Portfolio`,
+        short_name: `virenb`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#2e8b57`,
+        theme_color: `#2e8b57`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icons: [
+          {
+            src: `src/images/android-chrome-192x192.png`,
+            sizes: `192x192`,
+            type: `image/png`,
+          },
+          {
+            src: `src/images/android-chrome-512x512.png`,
+            sizes: `512x512`,
+            type: `image/png`,
+          },
+          {
+            src: `src/images/apple-touch-icon.png`,
+            sizes: `180x180`,
+            type: `image/png`,
+          },
+          {
+            src: `src/images/favicon-16x16.png`,
+            sizes: `16x16`,
+            type: `image/png`,
+          },
+          {
+            src: `src/images/favicon-32x32.png`,
+            sizes: `32x32`,
+            type: `image/png`,
+          },
+          {
+            src: `src/images/favicon.ico`,
+            sizes: `48x48`,
+            type: `image/ico`,
+          },
+        ]
       },
     },
     {

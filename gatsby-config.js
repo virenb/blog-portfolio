@@ -30,38 +30,39 @@ module.exports = {
         background_color: `#2e8b57`,
         theme_color: `#2e8b57`,
         display: `minimal-ui`,
-        icons: [
-          {
-            src: `src/images/android-chrome-192x192.png`,
-            sizes: `192x192`,
-            type: `image/png`,
-          },
-          {
-            src: `src/images/android-chrome-512x512.png`,
-            sizes: `512x512`,
-            type: `image/png`,
-          },
-          {
-            src: `src/images/apple-touch-icon.png`,
-            sizes: `180x180`,
-            type: `image/png`,
-          },
-          {
-            src: `src/images/favicon-16x16.png`,
-            sizes: `16x16`,
-            type: `image/png`,
-          },
-          {
-            src: `src/images/favicon-32x32.png`,
-            sizes: `32x32`,
-            type: `image/png`,
-          },
-          {
-            src: `src/images/favicon.ico`,
-            sizes: `48x48`,
-            type: `image/ico`,
-          },
-        ]
+        icon: `src/images/apple-touch-icon.png`,
+        // icons: [
+        //   {
+        //     src: `src/images/android-chrome-192x192.png`,
+        //     sizes: `192x192`,
+        //     type: `image/png`,
+        //   },
+        //   {
+        //     src: `src/images/android-chrome-512x512.png`,
+        //     sizes: `512x512`,
+        //     type: `image/png`,
+        //   },
+        //   {
+        //     src: `src/images/apple-touch-icon.png`,
+        //     sizes: `180x180`,
+        //     type: `image/png`,
+        //   },
+        //   {
+        //     src: `src/images/favicon-16x16.png`,
+        //     sizes: `16x16`,
+        //     type: `image/png`,
+        //   },
+        //   {
+        //     src: `src/images/favicon-32x32.png`,
+        //     sizes: `32x32`,
+        //     type: `image/png`,
+        //   },
+        //   {
+        //     src: `src/images/favicon.ico`,
+        //     sizes: `48x48`,
+        //     type: `image/ico`,
+        //   },
+        // ]
       },
     },
     {

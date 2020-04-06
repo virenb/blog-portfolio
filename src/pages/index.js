@@ -41,8 +41,10 @@ const BlogList = styled.ol`
 
 const BlogLink = styled(props => <Link {...props} />)`
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   padding-right: 0.5rem;
+  color: #000000;
+  text-decoration: none;
 `
 
 const IndexPage = ({ data }) => {

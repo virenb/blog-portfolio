@@ -35,7 +35,7 @@ const AnchorEmail = styled(Anchor)`
   font-weight: 700; 
 `
 
-const BlogList = styled.ul`
+const BlogList = styled.ol`
   list-style-type: lower-roman;
 `
 
@@ -68,7 +68,7 @@ const IndexPage = ({ data }) => {
         <LIButton><Anchor href="https://www.linkedin.com/in/virenbhagat/" target="_blank">LinkedIn</Anchor></LIButton>
       </div>
       <h3>Blog Posts</h3>
-      <BlogList>
+      <BlogList reversed>
         {edges.map(({node}) => {
           return (
             <li key={node.slug}>

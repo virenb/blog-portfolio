@@ -49,7 +49,7 @@ const BlogLink = styled(props => <Link {...props} />)`
 
 const IndexPage = ({ data }) => {
   const { edges } = data.allContentfulBlogPost;
-  console.log(edges)
+  // console.log(edges)
   return (
     <Layout>
       <SEO title="Home" />

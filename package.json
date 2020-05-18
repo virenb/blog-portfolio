@@ -9,6 +9,7 @@
     "gatsby": "^2.19.45",
     "gatsby-cli": "^2.10.11",
     "gatsby-image": "^2.2.44",
+    "gatsby-plugin-canonical-urls": "^2.3.1",
     "gatsby-plugin-manifest": "^2.2.48",
     "gatsby-plugin-offline": "^3.0.41",
     "gatsby-plugin-react-helmet": "^3.1.24",

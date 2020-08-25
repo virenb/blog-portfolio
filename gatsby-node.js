@@ -34,7 +34,7 @@ const path = require("path")
 // }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  const template = path.resolve(`./src/templates/mdx-posts-layout.js`)
+  const template = path.resolve(`./src/templates/mdxPost.js`)
   const { createPage } = actions
   const result = await graphql(`
     query {

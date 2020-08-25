@@ -9,6 +9,7 @@ module.exports = {
     author: `@virengb`,
   },
   plugins: [
+    `gatsby-plugin-dark-mode`,
     `gatsby-plugin-mdx`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,

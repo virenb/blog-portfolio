@@ -18,7 +18,9 @@ const Toggle = () => {
               onChange={e => toggleTheme(e.target.checked ? "dark" : "light")}
               checked={theme === "dark"}
             />{" "}
-            Dark mode
+            <span role="img" aria-label="crescent-moon">
+              &#127769;
+            </span>
           </label>
         )
       }}

@@ -1,11 +1,11 @@
-import React from "react"
-import PropTypes from "prop-types"
-import Toggle from "./toggle"
-import { useStaticQuery, graphql, Link } from "gatsby"
+import React from 'react';
+import PropTypes from 'prop-types';
+import Toggle from './toggle';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 
-import Header from "./header"
+import Header from './header';
 
-import "./layout.css"
+import './layout.css';
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -16,37 +16,37 @@ const Layout = ({ children }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
     <>
       <div
         style={{
-          backgroundColor: "var(--bg)",
-          color: "var(--textNormal)",
-          transition: "color 0.2s ease-out, background 0.2s ease-out",
+          backgroundColor: 'var(--bg)',
+          color: 'var(--textNormal)',
+          transition: 'color 0.2s ease-out, background 0.2s ease-out',
         }}
       >
         <div
           style={{
-            margin: "0 auto",
-            maxWidth: "60rem",
-            padding: "0 1.0875rem 1.45rem",
-            display: "flex",
-            minHeight: "100vh",
-            flexDirection: "column",
+            margin: '0 auto',
+            maxWidth: '60rem',
+            padding: '0 1.0875rem 1.45rem',
+            display: 'flex',
+            minHeight: '100vh',
+            flexDirection: 'column',
           }}
         >
           <Header>
             <h1 style={{ margin: 0 }}>
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
                 {data.site.siteMetadata.title}
               </Link>
             </h1>
             <Toggle />
           </Header>
-          <div style={{ flex: "1" }}>{children}</div>
-          <footer style={{ textAlign: "center" }}>
+          <div style={{ flex: '1' }}>{children}</div>
+          <footer style={{ textAlign: 'center' }}>
             © {new Date().getFullYear()}, Built with
             {` `}
             <a href="https://www.gatsbyjs.org">Gatsby</a>
@@ -54,11 +54,11 @@ const Layout = ({ children }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

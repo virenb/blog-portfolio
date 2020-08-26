@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import Toggle from "./toggle"
 import { useStaticQuery, graphql, Link } from "gatsby"
 
 import "./layout.css"
@@ -41,7 +42,7 @@ const Layout = ({ children }) => {
       site {
         siteMetadata {
           title
-        } 
+        }
       }
     }
   `)
@@ -51,24 +52,23 @@ const Layout = ({ children }) => {
       <Container>
         <Header>
           <Title>
-            <StyledLink to="/">
-              {data.site.siteMetadata.title}
-            </StyledLink>
+            <StyledLink to="/">{data.site.siteMetadata.title}</StyledLink>
           </Title>
+          <Toggle />
         </Header>
         <MainContainer>{children}</MainContainer>
-      <Footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
-      </Footer>
+        <Footer>
+          © {new Date().getFullYear()}, Built with
+          {` `}
+          <a href="https://www.gatsbyjs.org">Gatsby</a>
+        </Footer>
       </Container>
     </>
   )
 }
 
 Layout.propTypes = {
-children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Layout

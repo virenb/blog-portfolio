@@ -1,40 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
-import styled from "styled-components"
 import Toggle from "./toggle"
 import { useStaticQuery, graphql, Link } from "gatsby"
 
+import Header from "./header"
+
 import "./layout.css"
-
-const Container = styled.div`
-  margin: 0 auto;
-  max-width: 60rem;
-  padding: 0 1.0875rem 1.45rem;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-`
-
-const Header = styled.header`
-  margin: 1.45rem 0;
-`
-
-const Title = styled.h1`
-  margin: 0;
-`
-
-const StyledLink = styled(props => <Link {...props} />)`
-  text-decoration: none;
-  color: seagreen;
-`
-
-const MainContainer = styled.main`
-  flex: 1;
-`
-
-const Footer = styled.footer`
-  text-align: center;
-`
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -49,20 +20,39 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Container>
-        <Header>
-          <Title>
-            <StyledLink to="/">{data.site.siteMetadata.title}</StyledLink>
-          </Title>
-          <Toggle />
-        </Header>
-        <MainContainer>{children}</MainContainer>
-        <Footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </Footer>
-      </Container>
+      <div
+        style={{
+          backgroundColor: "var(--bg)",
+          color: "var(--textNormal)",
+          transition: "color 0.2s ease-out, background 0.2s ease-out",
+        }}
+      >
+        <div
+          style={{
+            margin: "0 auto",
+            maxWidth: "60rem",
+            padding: "0 1.0875rem 1.45rem",
+            display: "flex",
+            minHeight: "100vh",
+            flexDirection: "column",
+          }}
+        >
+          <Header>
+            <h1 style={{ margin: 0 }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                {data.site.siteMetadata.title}
+              </Link>
+            </h1>
+            <Toggle />
+          </Header>
+          <div style={{ flex: "1" }}>{children}</div>
+          <footer style={{ textAlign: "center" }}>
+            © {new Date().getFullYear()}, Built with
+            {` `}
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </footer>
+        </div>
+      </div>
     </>
   )
 }

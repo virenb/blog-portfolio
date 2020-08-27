@@ -20,6 +20,7 @@ const Header = ({ siteTitle }) => (
           to="/"
           style={{
             textDecoration: `none`,
+            color: 'var(--textLink)',
           }}
         >
           {siteTitle}

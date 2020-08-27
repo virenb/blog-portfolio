@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
           <Toggle />
           <Header>
             <h1 style={{ margin: '0' }}>
-              <Link to="/" style={{ textDecoration: 'none', color: 'pink' }}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
                 {data.site.siteMetadata.title}
               </Link>
             </h1>

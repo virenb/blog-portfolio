@@ -1,40 +1,11 @@
-import React from "react"
-import PropTypes from "prop-types"
-import styled from "styled-components"
-import Toggle from "./toggle"
-import { useStaticQuery, graphql, Link } from "gatsby"
+import React from 'react';
+import PropTypes from 'prop-types';
+import Toggle from './toggle';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 
-import "./layout.css"
+import Header from './header';
 
-const Container = styled.div`
-  margin: 0 auto;
-  max-width: 60rem;
-  padding: 0 1.0875rem 1.45rem;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-`
-
-const Header = styled.header`
-  margin: 1.45rem 0;
-`
-
-const Title = styled.h1`
-  margin: 0;
-`
-
-const StyledLink = styled(props => <Link {...props} />)`
-  text-decoration: none;
-  color: seagreen;
-`
-
-const MainContainer = styled.main`
-  flex: 1;
-`
-
-const Footer = styled.footer`
-  text-align: center;
-`
+import './layout.css';
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -45,30 +16,50 @@ const Layout = ({ children }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
     <>
-      <Container>
-        <Header>
-          <Title>
-            <StyledLink to="/">{data.site.siteMetadata.title}</StyledLink>
-          </Title>
+      <div
+        style={{
+          backgroundColor: 'var(--bg)',
+          color: 'var(--textNormal)',
+          transition: 'color 0.2s ease-out, background 0.2s ease-out',
+        }}
+      >
+        <div
+          style={{
+            margin: '0 auto',
+            maxWidth: '50rem',
+            padding: '0 1.0875rem 1.45rem',
+            display: 'flex',
+            minHeight: '100vh',
+            flexDirection: 'column',
+          }}
+        >
           <Toggle />
-        </Header>
-        <MainContainer>{children}</MainContainer>
-        <Footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </Footer>
-      </Container>
+          <Header>
+            <h1 style={{ margin: '0' }}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                {data.site.siteMetadata.title}
+              </Link>
+            </h1>
+          </Header>
+
+          <div style={{ flex: '1' }}>{children}</div>
+          <footer style={{ textAlign: 'center' }}>
+            © {new Date().getFullYear()}, Built with
+            {` `}
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </footer>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

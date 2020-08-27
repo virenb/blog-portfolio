@@ -12,7 +12,7 @@ const Toggle = () => {
           return null;
         }
         return (
-          <label>
+          <label style={{ margin: '1rem 0 0 0' }}>
             <input
               type="checkbox"
               onChange={e => toggleTheme(e.target.checked ? 'dark' : 'light')}

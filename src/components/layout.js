@@ -30,21 +30,22 @@ const Layout = ({ children }) => {
         <div
           style={{
             margin: '0 auto',
-            maxWidth: '60rem',
+            maxWidth: '50rem',
             padding: '0 1.0875rem 1.45rem',
             display: 'flex',
             minHeight: '100vh',
             flexDirection: 'column',
           }}
         >
+          <Toggle />
           <Header>
-            <h1 style={{ margin: 0 }}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
+            <h1 style={{ margin: '0' }}>
+              <Link to="/" style={{ textDecoration: 'none', color: 'pink' }}>
                 {data.site.siteMetadata.title}
               </Link>
             </h1>
-            <Toggle />
           </Header>
+
           <div style={{ flex: '1' }}>{children}</div>
           <footer style={{ textAlign: 'center' }}>
             © {new Date().getFullYear()}, Built with

@@ -50,7 +50,12 @@ const Layout = ({ children }) => {
           <footer style={{ textAlign: 'center' }}>
             © {new Date().getFullYear()}, Built with
             {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
+            <a
+              style={{ color: 'var(--socialLinks)' }}
+              href="https://www.gatsbyjs.org"
+            >
+              Gatsby
+            </a>
           </footer>
         </div>
       </div>

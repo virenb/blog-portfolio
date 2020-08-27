@@ -9,7 +9,12 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <h2>Hej World</h2>
+      <h2>
+        <span role="img" aria-label="waving-hand">
+          &#128075;
+        </span>{' '}
+        Hej World
+      </h2>
       <div>
         <p>
           My name is Viren, I'm a software engineer. I'm interested in a variety

@@ -627,6 +627,7 @@ body {
   --textNormal: #222;
   --textTitle: #222;
   --textLink: steelblue;
+  /* --socialLinks:  */
   --hr: hsla(0, 0%, 0%, 0.2);
   background-color: var(--bg);
 }
@@ -637,5 +638,6 @@ body.dark {
   --textNormal: rgba(255, 255, 255, 0.88);
   --textTitle: white;
   --textLink: yellow;
+  --socialLinks: yellow;
   --hr: hsla(0, 0%, 100%, 0.2);
 }

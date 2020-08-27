@@ -19,23 +19,44 @@ const IndexPage = ({ data }) => {
         <p>
           My name is Viren, I'm a software engineer. I'm interested in a variety
           of technologies. Feel free to contact me at{' '}
-          <a href="mailto:virenb@gmail.com">virenb[at]gmail.com</a>. All my
-          other links are below.
+          <a
+            style={{ color: 'var(--socialLinks)' }}
+            href="mailto:virenb@gmail.com"
+          >
+            virenb[at]gmail.com
+          </a>
+          . All my other links are below.
         </p>
 
-        <a href="https://twitter.com/virengb" target="_blank">
+        <a
+          style={{ color: 'var(--socialLinks)' }}
+          href="https://twitter.com/virengb"
+          target="_blank"
+        >
           twitter.com/virengb
         </a>
         <br />
-        <a href="https://github.com/virenb" target="_blank">
+        <a
+          style={{ color: 'var(--socialLinks)' }}
+          href="https://github.com/virenb"
+          target="_blank"
+        >
           github.com/virenb
         </a>
         <br />
-        <a href="https://dev.to/virenb" target="_blank">
+        <a
+          style={{ color: 'var(--socialLinks)' }}
+          href="https://dev.to/virenb"
+          target="_blank"
+        >
           dev.to/virenb
         </a>
         <br />
-        <a href="https://linkedin.com/in/virenbhagat" target="_blank">
+        <a
+          style={{ color: 'var(--socialLinks)' }}
+          href="https://linkedin.com/in/virenbhagat"
+          target="_blank"
+        >
           linkedin.com/in/virenbhagat
         </a>
       </div>

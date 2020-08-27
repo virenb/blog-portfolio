@@ -11,14 +11,33 @@ const IndexPage = ({ data }) => {
       <SEO title="Home" />
       <h2>Hej World</h2>
       <div>
-        <p>HI</p>
+        <p>
+          My name is Viren, I'm a software engineer. I'm interested in a variety
+          of technologies. Feel free to contact me at{' '}
+          <a href="mailto:virenb@gmail.com">virenb[at]gmail.com</a>. All my
+          other links are below.
+        </p>
+
+        <a href="https://twitter.com/virengb" target="_blank">
+          twitter.com/virengb
+        </a>
+        <br />
+        <a href="https://github.com/virenb" target="_blank">
+          github.com/virenb
+        </a>
+        <br />
+        <a href="https://dev.to/virenb" target="_blank">
+          dev.to/virenb
+        </a>
+        <br />
+        <a href="https://linkedin.com/in/virenbhagat" target="_blank">
+          linkedin.com/in/virenbhagat
+        </a>
       </div>
-      <div
-        style={{
-          margin: `-1rem 0 1rem 0`,
-        }}
-      ></div>
-      {/* <h3>Blog Posts</h3>
+      <br />
+      <div>
+        <h3>Posts</h3>
+        {/* <h3>Blog Posts</h3>
       <BlogList reversed>
         {edges.map(({ node }) => {
           return (
@@ -29,6 +48,7 @@ const IndexPage = ({ data }) => {
           )
         })}
       </BlogList> */}
+      </div>
     </Layout>
   );
 };

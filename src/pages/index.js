@@ -73,7 +73,10 @@ const IndexPage = ({ data }) => {
                   textDecoration: 'none',
                 }}
               >
-                <h2 style={{ fontSize: '1.2rem' }}>{post.frontmatter.title}</h2>
+                <h2 style={{ fontSize: '1.2rem', fontWeight: '400' }}>
+                  {post.frontmatter.title}
+                </h2>
+                {new Date(post.frontmatter.date).toLocaleDateString()}
               </Link>
             </li>
           ))}
@@ -92,6 +95,7 @@ export const pageQuery = graphql`
           slug
           frontmatter {
             title
+            date
           }
         }
       }

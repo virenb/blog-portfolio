@@ -32,6 +32,7 @@ const IndexPage = ({ data }) => {
           style={{ color: 'var(--socialLinks)' }}
           href="https://twitter.com/virengb"
           target="_blank"
+          rel="noreferrer"
         >
           twitter.com/virengb
         </a>
@@ -40,6 +41,7 @@ const IndexPage = ({ data }) => {
           style={{ color: 'var(--socialLinks)' }}
           href="https://github.com/virenb"
           target="_blank"
+          rel="noreferrer"
         >
           github.com/virenb
         </a>
@@ -48,6 +50,7 @@ const IndexPage = ({ data }) => {
           style={{ color: 'var(--socialLinks)' }}
           href="https://dev.to/virenb"
           target="_blank"
+          rel="noreferrer"
         >
           dev.to/virenb
         </a>
@@ -56,6 +59,7 @@ const IndexPage = ({ data }) => {
           style={{ color: 'var(--socialLinks)' }}
           href="https://linkedin.com/in/virenbhagat"
           target="_blank"
+          rel="noreferrer"
         >
           linkedin.com/in/virenbhagat
         </a>

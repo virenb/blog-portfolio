@@ -63,7 +63,7 @@ const IndexPage = ({ data }) => {
       <br />
       <div>
         <h3>Posts</h3>
-        <ul>
+        <ul style={{ listStyle: 'none' }}>
           {posts.map(({ node: post }) => (
             <li key={post.id}>
               <Link

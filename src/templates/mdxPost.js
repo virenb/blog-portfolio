@@ -1,9 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-//import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { Link } from 'gatsby';
-//import Layout from '../components/layout';
 import PostLayout from '../components/posts-page-layout';
 
 export default function PostTemplate({ data: { mdx } }) {

@@ -7,8 +7,7 @@ export default function PostLayout({ children }) {
     <Layout>
       <MDXProvider
         components={{
-          h1: props => <h1 {...props} style={{ color: 'pink' }} />,
-          p: props => <p {...props} style={{ color: 'rebeccapurple' }} />,
+          a: props => <a {...props} style={{ color: 'var(--socialLinks)' }} />,
         }}
       >
         {children}

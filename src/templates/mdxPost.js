@@ -1,22 +1,22 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { MDXProvider } from "@mdx-js/react"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import { Link } from "gatsby"
-import Layout from "../components/layout"
+import React from 'react';
+import { graphql } from 'gatsby';
+//import { MDXProvider } from '@mdx-js/react';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { Link } from 'gatsby';
+//import Layout from '../components/layout';
+import PostLayout from '../components/posts-page-layout';
 
-const shortcodes = { Link } // Provide common components here
 export default function PostTemplate({ data: { mdx } }) {
-  console.log(mdx.frontmatter.tags)
   return (
-    <Layout>
+    <PostLayout>
       <h1>{mdx.frontmatter.title}</h1>
-      <div>{mdx.frontmatter.tags.join(" ").split("")}</div>
-      <MDXProvider components={shortcodes}>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </MDXProvider>
-    </Layout>
-  )
+      {new Date(mdx.frontmatter.date).toLocaleDateString()}
+      <div>{mdx.frontmatter.tags.join(', ').split('')}</div>
+      <br />
+
+      <MDXRenderer>{mdx.body}</MDXRenderer>
+    </PostLayout>
+  );
 }
 
 export const pageQuery = graphql`
@@ -26,8 +26,9 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        date
         tags
       }
     }
   }
-`
+`;

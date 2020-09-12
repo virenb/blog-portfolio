@@ -4,7 +4,7 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 const IndexPage = ({ data }) => {
-  //const { edges } = data.allContentfulBlogPost
+  const { edges: posts } = data.allMdx;
 
   return (
     <Layout>
@@ -63,34 +63,44 @@ const IndexPage = ({ data }) => {
       <br />
       <div>
         <h3>Posts</h3>
-        {/* <h3>Blog Posts</h3>
-      <BlogList reversed>
-        {edges.map(({ node }) => {
-          return (
-            <li key={node.slug}>
-              <BlogLink to={node.slug}>{node.title}</BlogLink>
-              {new Date(node.date).toLocaleDateString()}
+        <ul style={{ listStyle: 'none' }}>
+          {posts.map(({ node: post }) => (
+            <li key={post.id}>
+              <Link
+                to={post.slug}
+                style={{
+                  color: 'var(--socialLinks)',
+                  textDecoration: 'none',
+                }}
+              >
+                <h2 style={{ fontSize: '1.2rem', fontWeight: '400' }}>
+                  {post.frontmatter.title}
+                </h2>
+                {new Date(post.frontmatter.date).toLocaleDateString()}
+              </Link>
             </li>
-          )
-        })}
-      </BlogList> */}
+          ))}
+        </ul>
       </div>
     </Layout>
   );
 };
 
-export default IndexPage;
+export const pageQuery = graphql`
+  query blogIndex {
+    allMdx {
+      edges {
+        node {
+          id
+          slug
+          frontmatter {
+            title
+            date
+          }
+        }
+      }
+    }
+  }
+`;
 
-// export const indexQuery = graphql`
-//   query {
-//     allContentfulBlogPost {
-//       edges {
-//         node {
-//           title
-//           date
-//           slug
-//         }
-//       }
-//     }
-//   }
-// `
+export default IndexPage;

@@ -11,12 +11,7 @@ export default function PostTemplate({ data: { mdx } }) {
     <PostLayout>
       <h1>{mdx.frontmatter.title}</h1>
       {new Date(mdx.frontmatter.date).toLocaleDateString()}
-      <div>
-        {mdx.frontmatter.tags
-          .map(idx => '#' + idx)
-          .join(', ')
-          .split('')}
-      </div>
+      <div>{mdx.frontmatter.tags.join(', ').split('')}</div>
       <br />
 
       <MDXRenderer>{mdx.body}</MDXRenderer>

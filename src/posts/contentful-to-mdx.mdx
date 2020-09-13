@@ -1,0 +1,336 @@
+---
+title: Moving from Contentful to MDX for my Gatsby website
+path: /contentful-to-mdx
+date: 2020-09-13
+tags: [ "#gatsby", "#cms", "#mdx"]
+---
+
+
+Over the last few weeks, I've been considering and then trying to move the blogs on my website from Contentful CMS to MDX.
+Contentful is a great CMS and I did use it a bit but I wanted to improve the styling on my Markdown files. I did not like the way certain elements were appearing on the posts. Maybe there was another way to fix this but I had been reading about MDX a lot. It seems to be gaining a lot of popularity and use (from what I read on Twitter). It looked like it would provide what I was looking for: more customizable markdown (through components).
+
+This website is currently built with Gatsby. Gatsby usually has a lot of guides when getting started or migrating something, so I went there first to see how to get started with MDX. Before that, I had to remove some of the Contentful related code on my website.
+
+First off, I went to my `gatsby-config.js` file, as this is where my Contentful id & token were stored (through environment variables). Deleted the below code -
+
+```
+// gatsby-config.js
+
+// ...
+{
+  resolve: `gatsby-source-contentful`,
+  options: {
+    spaceId: `yzwpq1epaq68`, 
+    accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
+  }
+}
+// ...
+
+```
+
+Next, I had three files I would have to change. My `index.js` (home page) has a list of blog posts so I had to delete the code and GraphQL query. I would also have to change my blog post template as it was set up for a Contentful related GraphQL query. I would also have to change `gatsby-node.js`, as this is where we are programmatically create pages from Contentful posts.
+
+Here is some of the code I deleted -
+
+```javascript
+// gatsby-node.js
+
+// ...
+ exports.createPages = async ({ graphql, actions }) => { 
+   const { createPage } = actions 
+   const blogPostTemplate = path.resolve(`src/templates/blogPost.js`)    
+   const result = await graphql(` 
+   {
+     allContentfulBlogPost {
+       edges {
+         node {
+           slug
+           title
+           id
+         }
+       }
+     }
+   }
+  `) 
+  // ...
+
+  result.data.allContentfulBlogPost.edges.forEach(edge => {
+    createPage({
+      path: `${edge.node.slug}`,
+      component: blogPostTemplate,
+      context: {
+        slug: edge.node.slug,
+        title: edge.node.title
+      }
+    })
+    }  
+  )
+```
+
+The above was a GraphQL query fetching my Contentful posts and create pages with the blog post template. As my new data source is MDX, I would not need all this.
+
+On my `pages/index.js` (home page), I deleted any code related to this (including the GraphQL query). I deleted my whole blog post template as well.
+
+It looks like I did not remove the gatsby-source-contentful package from the project but you can do so since we won't be using it.
+
+
+Alright, time to get started with MDX.js.
+
+
+What to do to get going with MDX?
+
+- Install necessary packages
+- Create `/posts/` folder to house blog posts
+- Update `gatsby-config.js`
+- Update `gatsby-node.js` (new query + createPages)
+- Create new blog template 
+- (Optional) add blog list back to home page (`pages/index.js`)
+- Figure out how to create / style MDX components
+
+I used a few resources to get a little more familiar with MDX and switching -
+
+[How to convert an existing Gatsby blog to use MDX](https://www.gatsbyjs.com/blog/2019-11-21-how-to-convert-an-existing-gatsby-blog-to-use-mdx/#gatsby-skip-here "How to convert an existing Gatsby blog to use MDX by Thomas Wang")
+
+[Gatsby Docs: Adding Components to Markdown with MDX](https://www.gatsbyjs.com/docs/mdx/ "Adding Components to Markdown with MDX")
+
+[MDX Docs: Gatsby](https://mdxjs.com/getting-started/gatsby "MDX Getting Started: Gatsby")
+
+
+We can get started by installing the packages -
+
+```
+npm install gatsby-plugin-mdx @mdx-js/mdx@latest @mdx-js/react@latest
+```
+
+Next, we can update our `gatsby-config.js` file -
+
+```javascript
+// gatsby-config.js
+
+// ...
+module.exports = {
+  plugins: [
+    `gatsby-plugin-mdx`,
+  ]
+  // ...
+}  
+```
+
+You can start writing .mdx now. You can create a .mdx file in your posts/ folder to try it out.
+
+I'll create my posts folder now with and make a sample post -
+
+```
+mkdir src/posts
+touch src/posts/hello-world.mdx
+```
+
+In my .mdx files, I'll make sure to add in some frontmatter (title, date, slug, etc.).
+
+Once you create a .mdx file, you can check the GraphQL query at localhost:8000/___graphql.
+
+We'll need to figure out the right query when we're in `gatsby-node.js`.
+
+Our packages are installed, `gatsby-config.js` is updated, `src/posts` is created, we'll now update `gatsby-node.js`.
+
+```javascript
+// gatsby-node.js
+
+const path = require("path");
+
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const template = path.resolve(`./src/templates/mdxPost.js`)
+  const { createPage } = actions
+  const result = await graphql(`
+    query {
+      allMdx {
+        edges {
+          node {
+            id
+            slug
+       }
+        }
+      }
+    }
+  `)
+  if (result.errors) {
+    reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query')
+  }
+  // Create blog post pages.
+  const posts = result.data.allMdx.edges
+  // you'll call `createPage` for each result
+  posts.forEach(({ node }, index) => {
+    createPage({
+      // This is the slug you created before
+      // (or `node.frontmatter.slug`)
+      path: `${node.slug}`,
+      // This component will wrap our MDX content
+      component: template,
+      // You can use the values in this context in
+      // our page layout component
+      context: { id: node.id },
+    })
+  })
+}
+```
+
+The source for the above code can be found at [https://www.gatsbyjs.com/docs/mdx/programmatically-creating-pages/](https://www.gatsbyjs.com/docs/mdx/programmatically-creating-pages/ "Create pages from sourced MDX files")
+
+The next thing to handle is the post templates. Above, you can see we are creating pages based on the file `./src/templates/mdxPost.js`. Let's create it.
+We can take the boilerplate code for this too provided in the above link.
+
+```jsx
+// src/template/mdxPost.js
+
+import React from "react"
+import { graphql } from "gatsby"
+import { MDXProvider } from "@mdx-js/react"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+import { Link } from "gatsby"
+
+const shortcodes = { Link } // Provide common components here
+
+export default function PageTemplate({ data: { mdx } }) {
+  return (
+    <div>
+      <h1>{mdx.frontmatter.title}</h1>
+      <MDXProvider components={shortcodes}>
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </MDXProvider>
+    </div>
+  )
+}
+export const pageQuery = graphql`
+  query BlogPostQuery($id: String) {
+    mdx(id: { eq: $id }) {
+      id
+      body
+      frontmatter {
+        title
+      }
+    }
+  }
+`
+```
+
+The only thing I did differently is wrapping the mdxPost in my Layout component to keep the styling consistent on my site.
+
+So, there we have it! I switched from Contentful to MDX. I was able to write my blog posts in my project files, in .mdx.
+
+But, when I tried to customize it a little futher (using actual components), it wasn't breaking but I was not seeing anything being update.
+
+I'd also added dark mode to my website, so things like the link tags in the .mdx posts were not updating colors.
+
+After scouring the documentation and Internet, I believe my problem was with MDXRenderer and MDXProvider. In the boilerplate code I used from the Gatsby website, the two components were in the same mdxPost template file.
+I was adding components to `shortcodes` in the template file but they were not being reflected in my .mdx posts.
+
+What fixed it for me was creating another Layout component for these posts. I would put my MDXProvider component in that and MDXRenderer in the templates/mdxPost file.
+
+
+I created `src/components/posts-page-layout.js` as this was the file used in some examples. Next, I added it as my default layout in `gatsby-config.js`.
+
+```javascript
+// gatsby-config.js
+
+// ...
+module.exports = {
+  plugins: [
+    `gatsby-plugin-mdx`,
+  ]
+  // ...
+}  
+```
+
+I changed the above to --
+
+```javascript
+// gatsby-config.js
+
+// ...
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-plugin-mdx`,
+      {
+        options: {
+          defaultLayouts: {
+            default: `./src/components/post-page-layout`
+          }
+        }
+      }
+    }
+  ]
+  // ...
+}  
+```
+
+Next, to add some code to `src/components/posts-page-layout.js`. I'd be moving my MDXProvider here.
+
+```jsx
+// src/components/posts-page-layout.js
+
+import React from 'react';
+import Layout from './layout';
+import { MDXProvider } from '@mdx-js/react';
+
+export default function PostLayout({ children }) {
+  return (
+    <Layout>
+      <MDXProvider
+        components={{
+          a: props => <a {...props} style={{ color: 'var(--socialLinks)' }} />,
+        }}
+      >
+        {children}
+      </MDXProvider>
+    </Layout>
+  );
+}
+```
+
+I'll be wrapping mdxPost in this above component. This is also the file where I can add my custom components that I'll be using in my .mdx file. I have an anchor element which will show in posts.
+
+Now to go back and update `src/templates/mdxPost.js`. We can remove a few things and add in the above PostLayout.
+
+
+```jsx
+// src/template/mdxPost.js
+
+import React from "react"
+import { graphql } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+
+export default function PageTemplate({ data: { mdx } }) {
+  return (
+    <div>
+      <h1>{mdx.frontmatter.title}</h1>
+      <MDXProvider components={shortcodes}>
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </MDXProvider>
+    </div>
+  )
+}
+export const pageQuery = graphql`
+  query BlogPostQuery($id: String) {
+    mdx(id: { eq: $id }) {
+      id
+      body
+      frontmatter {
+        title
+      }
+    }
+  }
+`
+```
+
+I removed MDXProvider, (Gatsby) Link, and shortcodes as the components will be in PostLayout, not PageTemplate.
+
+The components do have to be renamed as it seems a little confusing. This website is still a work in progess as I want to add more MDX Components among other things.
+
+Here is a preview of my first .mdx post. As you can see, the list of links takes in the styles that were passed to it in the PostLayout component.
+
+`style={{ color: 'var(--socialLinks)' }}`
+
+![My first MDX post](https://i.imgur.com/hXCkU9R.png "My first MDX post")
+
+Thanks for reading! My project can be found here - [https://github.com/virenb/blog-portfolio](https://github.com/virenb/blog-portfolio "Project Repository")

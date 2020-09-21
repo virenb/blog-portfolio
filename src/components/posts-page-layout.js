@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from './layout';
 import { MDXProvider } from '@mdx-js/react';
-import CodeBlock from './CodeBlock';
+import CodeBlock from './codeblock';
 
 export default function PostLayout({ children }) {
   return (

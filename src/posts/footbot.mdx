@@ -2,14 +2,12 @@
 title: Building a football (⚽) trivia bot with Node.js & Puppeteer
 path: /building-footbot
 date: 2020-09-11
-tags: [ "project", "nodejs", "puppeteer"]
+tags: ['project', 'nodejs', 'puppeteer']
 ---
 
+These are my notes on building a Twitter bot, [@FootbotTrivia](https://twitter.com/footbottrivia '@footbottrivia on twitter'). It is something I built a couple of months ago, and I just wanted to document it if it can help anyone else out. Twitter bots are a very popular project (judging by all the other blog posts that are out there) and it seems like it would be a good addition to one's portfolio.
 
-
-These are my notes on building a Twitter bot, [@FootbotTrivia](https://twitter.com/footbottrivia "@footbottrivia on twitter"). It is something I built a couple of months ago, and I just wanted to document it if it can help anyone else out. Twitter bots are a very popular project (judging by all the other blog posts that are out there) and it seems like it would be a good addition to one's portfolio. 
-
-My motivation for this project was to build something new, work with a new tool ([Puppeteer](https://pptr.dev/ "Puppeteer website & docs")), and combine my two of my passions (soccer/football and programming).
+My motivation for this project was to build something new, work with a new tool ([Puppeteer](https://pptr.dev/ 'Puppeteer website & docs')), and combine my two of my passions (soccer/football and programming).
 
 So, let's get started.
 
@@ -27,9 +25,9 @@ The technologies I used for this project were:
 
 Before writing any code, it is important to establish what you exactly want your bot (or any project) to accomplish. I wanted a simple output from my Twitter bot. I wanted it to tweet out a trivia question (a Wikipedia screenshot of a footballer's bio) and tweet out the answer, revealing the footballer's name some hours later. Okay, now on to the actual project.
 
-Before writing 'npm init' in your command line, I went to [https://developer.twitter.com/](https://developer.twitter.com) to register an application. You will need a API key, API secret, access token, and a access token secret. You'll just need to fill in some information and details about your application. 
+Before writing 'npm init' in your command line, I went to [https://developer.twitter.com/](https://developer.twitter.com) to register an application. You will need a API key, API secret, access token, and a access token secret. You'll just need to fill in some information and details about your application.
 
-```
+```bash
 mkdir footbot
 cd footbot
 ```
@@ -42,7 +40,7 @@ I start with initializing an npm project, with -y for the yes flag. Next, I crea
 
 I'll go ahead and install all the packages I know I'll need.
 
-```
+```bash
 npm install dotenv
 npm install puppeteer
 npm install twit
@@ -58,41 +56,45 @@ Once your Twitter application is approved, you can go back to [https://developer
 
 We'll make a hidden file, .env, to store this information. Your .env file would look something like this.
 
-```
+```javascript
 // .env
 
-CONSUMER_KEY=copypaste
-CONSUMER_SECRET=theinformation
-ACCESS_TOKEN=intothis
-ACCESS_TOKEN_SECRET=file
+CONSUMER_KEY = copypaste;
+CONSUMER_SECRET = theinformation;
+ACCESS_TOKEN = intothis;
+ACCESS_TOKEN_SECRET = file;
 ```
 
 (They're actually much longer strings of letters and numbers ^^)
 
 Okay, next we can explore the Twit documentation so we can get our bot tweeting, starting with some 'Hello World' action.
 
-[https://github.com/ttezel/twit](https://github.com/ttezel/twit "Twit documentation")
+[https://github.com/ttezel/twit](https://github.com/ttezel/twit 'Twit documentation')
 
 A lot can be done with this API. You can have your Twitter bot tweet, search, get followers, post media, etc.
 
-You can copy some of the code from the project to get your bot started up. 
+You can copy some of the code from the project to get your bot started up.
 
-```
+```javascript
 // server.js
-const Twit = require('twit')
+const Twit = require('twit');
 
 const T = new Twit({
-  consumer_key:         '...',
-  consumer_secret:      '...',
-  access_token:         '...',
-  access_token_secret:  '...',
-})
+  consumer_key: '...',
+  consumer_secret: '...',
+  access_token: '...',
+  access_token_secret: '...',
+});
 
 //  tweet 'hello world!'
 //
-T.post('statuses/update', { status: 'hello world!' }, function(err, data, response) {
-  console.log(data)
-})
+T.post('statuses/update', { status: 'hello world!' }, function(
+  err,
+  data,
+  response
+) {
+  console.log(data);
+});
 ```
 
 The only thing we'll have to update in the above is plugging in our API key and tokens. If the project is staying on your machine, you can directly add the information to server.js. If the code is going to be pushed onto a GitHub repository, it is better to hide your information (that is why we're using dotenv). So we'll have to add the below to server.js -
@@ -105,22 +107,26 @@ const consumer_secret = process.env.CONSUMER_SECRET;
 const access_token = process.env.ACCESS_TOKEN;
 const access_token_secret = process.env.ACCESS_TOKEN_SECRET;
 
-const  T = new  Twit({
-	consumer_key,
-	consumer_secret,
-	access_token,
-	access_token_secret,
+const T = new Twit({
+  consumer_key,
+  consumer_secret,
+  access_token,
+  access_token_secret,
 });
 
 //  tweet 'hello world!'
-T.post('statuses/update', { status: 'hello world!' }, function(err, data, response) {
-  console.log(data)
-})
+T.post('statuses/update', { status: 'hello world!' }, function(
+  err,
+  data,
+  response
+) {
+  console.log(data);
+});
 ```
 
 In our package.json, we can add the following to 'scripts' -
 
-```
+```json
 "scripts": {
 	"start": "node server.js"
 },
@@ -130,7 +136,7 @@ Once we run `npm run start`, our bot will tweet out 'hello world!'.
 
 !['hello world' tweet](//images.ctfassets.net/yzwpq1epaq68/5dMWsrHLBF5G4rtxNYK1r0/bf16bb4b7d8096b69ef3974955a5a4c3/Screen_Shot_2020-09-08_at_3.10.32_PM.png)
 
-Okay, great! We have a working Twitter bot. We'll definitely be referencing those docs again as our goal is to post media (Wikipedia screenshots). 
+Okay, great! We have a working Twitter bot. We'll definitely be referencing those docs again as our goal is to post media (Wikipedia screenshots).
 
 So, what we have left, is to -
 
@@ -139,33 +145,29 @@ So, what we have left, is to -
 -Tweet out the image(s)
 -Deploy
 
-
-
 Moving on to the information part of the project, Wikipedia!
 
-[https://en.wikipedia.org/wiki/Romelu_Lukaku](https://en.wikipedia.org/wiki/Romelu_Lukaku "Romelu Lukaku wikipedia")
+[https://en.wikipedia.org/wiki/Romelu_Lukaku](https://en.wikipedia.org/wiki/Romelu_Lukaku 'Romelu Lukaku wikipedia')
 
 The above link is an example of Wikipedia we'd be using.
 
-We're interested in the information box on the right side. Our bot would tweet out an image, without the name, picture, information (name, age, etc.), just the team information. Our 'answer' tweet would have an image of the box with all the information. 
+We're interested in the information box on the right side. Our bot would tweet out an image, without the name, picture, information (name, age, etc.), just the team information. Our 'answer' tweet would have an image of the box with all the information.
 
 We'll need to rely on the browser's DevTools a lot in order to remove a bunch of the information in the information box (a table actually) as see below -
 
 ![Dev Tools on Wikipedia.org](//images.ctfassets.net/yzwpq1epaq68/1gh0GtOKlgoBFEbf5sIVhl/37626d65af2fddbba940296d891afae4/Screen_Shot_2020-09-08_at_3.45.14_PM.png)
 
-
 The next step was to determine how to get rid of the information for the question tweet. Using the browser's DevTools, we were able to look at the HTML on the page. Then came a lot of vanilla JavaScript methods:
 
-[https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector "querySelector() docs")
+[https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector 'querySelector() docs')
 
-[https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll "querySelectorAll() docs")
+[https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll 'querySelectorAll() docs')
 
-[https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode](https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode "parentNode docs")
+[https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode](https://developer.mozilla.org/en-US/docs/Web/API/Node/parentNode 'parentNode docs')
 
-[https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove](https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove "ChildeNode.remove()")
+[https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove](https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove 'ChildeNode.remove()')
 
-[https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling "nextSibling docs")
-
+[https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling 'nextSibling docs')
 
 ```javascript
 let img = document.querySelector('.image');
@@ -194,28 +196,17 @@ let fullname = document.querySelector('.fn');
 fullname.remove();
 ```
 
-
-
 ![Christian Pulisic Wikipedia](//images.ctfassets.net/yzwpq1epaq68/7bbvGCC55KxsEmYFGIS3W0/a061ef72afdf5160fbc2b9fbc4f6b664/Screen_Shot_2020-09-10_at_11.15.40_AM.png)
-
-
 
 After running the above code, our screenshot would look something like this:
 
-
 ![Pulisic's Wikipedia without information](//images.ctfassets.net/yzwpq1epaq68/6UhydUlSISyERYsRMWue9N/d1968bba850fa8d7781490f8a95f4635/Screen_Shot_2020-09-10_at_11.16.37_AM.png)
-
-
 
 That was the 'trivia' aspect I was going for. Having the user being able to see the footballer's teams but no other information to guess from.
 
-
-
 So now we have the data we need, how do we actually take a screenshot of each image? Puppeteer! This was my first time using this tool.
 
-
-From the Puppeteer website, 
-
+From the Puppeteer website,
 
 > > Puppeteer is a Node library which provides a high-level API to control Chrome or Chromium over the [DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/). Puppeteer runs [headless](https://developers.google.com/web/updates/2017/04/headless-chrome) by default, but can be configured to run full (non-headless) Chrome or Chromium.
 >
@@ -230,8 +221,6 @@ From the Puppeteer website,
 > - Capture a [timeline trace](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference) of your site to help diagnose performance issues.
 > - Test Chrome Extensions.
 
-
-
 From some browsing, Puppeteer is a popular tool for testing, automating, and scraping data from websites. I wanted to use it because of the first bulletpoint mentioned above, taking a screenshot of a page.
 
 After spending a lot of time reading documentation, this was the basic code I would need to take my screenshot -
@@ -243,24 +232,16 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://example.com');
-  await page.screenshot({path: 'screenshot.png'});
+  await page.screenshot({ path: 'screenshot.png' });
   await browser.close();
 })();
 ```
 
-
-
 The above code is an async immediately invoked function expression. Line by line, it launches a browser, goes to a website you input, and saves a screenshot.
-
-
 
 This would take a screenshot of the whole page, where I was looking for a screenshot of the little infographic box with the footballer's details.
 
-
-
 ![page.$(selector) Method](//images.ctfassets.net/yzwpq1epaq68/1bZ1vvZzSQjdSIq4Qj1Rid/5e7400d617c5b63e3b81c70a5f3cdf00/Screen_Shot_2020-09-10_at_11.27.21_AM.png)
-
-
 
 I used the above method to narrow in on the page element I wanted the screenshot of, `tbody`.
 
@@ -268,31 +249,19 @@ I used the above method to narrow in on the page element I wanted the screenshot
 const element = await page.$('tbody');
 ```
 
-
-
 After narrowing down the element, we can take a screenshot. That would have all the footballer's information, therefore, that would be our 'answer' screenshot.
-
-
 
 ```javascript
 await element.screenshot({ path: 'answer.png' });
 ```
 
-
-
 We now need to take a screenshot of our infographic box after removing most of the data. How can this be done?
-
-
 
 After some more scouring of the documentation and a bit of searching the Internet, we find the correct method.
 
-[page.evaluate()](https://pptr.dev/#?product=Puppeteer&version=v5.2.1&show=api-pageevaluatepagefunction-args "page.evaluate() docs")
-
-
+[page.evaluate()](https://pptr.dev/#?product=Puppeteer&version=v5.2.1&show=api-pageevaluatepagefunction-args 'page.evaluate() docs')
 
 This will allow use to run our JavaScript (querySelector(), parentNode.remove(), etc) like we mentioned earlier. We can remove all the DOM elements we need, then take a screenshot.
-
-
 
 ```javascript
 await page.evaluate(() => {
@@ -342,61 +311,51 @@ await page.evaluate(() => {
 })();
 ```
 
-
-
 So we're doing good, we have our screenshots! The next step is to get our bot to tweet these out.
-
-
 
 As we mentioned earlier, the Twitter API Client let's us tweet out media, which is what we'll be doing (images).
 
-
-
 Going back to the twit documentation, this is the sample code provided for tweeting images -
-
-
 
 ```javascript
 //
 // post a tweet with media
 //
-var b64content = fs.readFileSync('/path/to/img', { encoding: 'base64' })
+var b64content = fs.readFileSync('/path/to/img', { encoding: 'base64' });
 
 // first we must post the media to Twitter
-T.post('media/upload', { media_data: b64content }, function (err, data, response) {
+T.post('media/upload', { media_data: b64content }, function(
+  err,
+  data,
+  response
+) {
   // now we can assign alt text to the media, for use by screen readers and
   // other text-based presentations and interpreters
-  var mediaIdStr = data.media_id_string
-  var altText = "Small flowers in a planter on a sunny balcony, blossoming."
-  var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+  var mediaIdStr = data.media_id_string;
+  var altText = 'Small flowers in a planter on a sunny balcony, blossoming.';
+  var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
-  T.post('media/metadata/create', meta_params, function (err, data, response) {
+  T.post('media/metadata/create', meta_params, function(err, data, response) {
     if (!err) {
       // now we can reference the media and post a tweet (media will attach to the tweet)
-      var params = { status: 'loving life #nofilter', media_ids: [mediaIdStr] }
+      var params = { status: 'loving life #nofilter', media_ids: [mediaIdStr] };
 
-      T.post('statuses/update', params, function (err, data, response) {
-        console.log(data)
-      })
+      T.post('statuses/update', params, function(err, data, response) {
+        console.log(data);
+      });
     }
-  })
-})
+  });
+});
 ```
-
-
 
 We just have to change the file, change the alt text, and provide the status (as this will show as the text in our tweet).
 
-
-
 I wrapped it in a function named `postPlayer()`.
-
-
 
 ```javascript
 function postPlayer() {
   let b64content = fs.readFileSync('./player.png', { encoding: 'base64' });
-  bot.post('media/upload', { media_data: b64content }, function (
+  bot.post('media/upload', { media_data: b64content }, function(
     err,
     data,
     response
@@ -405,7 +364,7 @@ function postPlayer() {
     let altText = "Unknown footballer's statistics and information.";
     let meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
-    bot.post('media/metadata/create', meta_params, function (
+    bot.post('media/metadata/create', meta_params, function(
       err,
       data,
       response
@@ -415,7 +374,7 @@ function postPlayer() {
           status: 'Guess that player #footballtrivia #PremierLeague',
           media_ids: [mediaIdStr],
         };
-        bot.post('statuses/update', params, function (err, data, response) {
+        bot.post('statuses/update', params, function(err, data, response) {
           console.log(data);
         });
       }
@@ -424,16 +383,12 @@ function postPlayer() {
 }
 ```
 
-
-
 I used the same code again for posting the answer (just swapping out the file and the content of the tweet).
-
-
 
 ```javascript
 function postAnswer() {
   let b64answer = fs.readFileSync('./answer.png', { encoding: 'base64' });
-  bot.post('media/upload', { media_data: b64answer }, function (
+  bot.post('media/upload', { media_data: b64answer }, function(
     err,
     data,
     response
@@ -442,7 +397,7 @@ function postAnswer() {
     let altText = 'Answer';
     let meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
-    bot.post('media/metadata/create', meta_params, function (
+    bot.post('media/metadata/create', meta_params, function(
       err,
       data,
       response
@@ -452,7 +407,7 @@ function postAnswer() {
           status: `Today's answer #footballtrivia #PremierLeague`,
           media_ids: [mediaIdStr],
         };
-        bot.post('statuses/update', params, function (err, data, response) {
+        bot.post('statuses/update', params, function(err, data, response) {
           console.log(data);
         });
       }
@@ -461,69 +416,44 @@ function postAnswer() {
 }
 ```
 
-
-
 The next challenge was to ensure that the bot would not tweet these out simultaneously. We want to give the users some time to see and guess before posting the answer. setTimeout() is a good way to provide a delay between tweets.
-
-
 
 ```javascript
 postPlayer();
 setTimeout(postAnswer, 18000000); // in milliseconds, ~ 5 hours
 ```
 
-
-
-Alright, great! Our bot is functioning. The next and final challenge is how to keep it running? We have to find  where to host our project, where it will run once a day, tweeting out the question and five hours later (thanks to setTimeout()), the answer. We could manually run the project locally once a day but that is not a feasible solution. Looking at other bot projects, Heroku and Glitch were popular places to host your Twitter bot project.
-
-
+Alright, great! Our bot is functioning. The next and final challenge is how to keep it running? We have to find where to host our project, where it will run once a day, tweeting out the question and five hours later (thanks to setTimeout()), the answer. We could manually run the project locally once a day but that is not a feasible solution. Looking at other bot projects, Heroku and Glitch were popular places to host your Twitter bot project.
 
 Glitch actually has a good starter template if you want to build a bot project -
 
-
-[https://glitch.com/~twitterbot][https://glitch.com/~twitterbot "Twitterbot project on Glitch"]
-
-
+[https://glitch.com/~twitterbot][https://glitch.com/~twitterbot "twitterbot project on glitch"]
 
 You can schedule a cron job to visit your Glitch url daily, which would set off the Twitter bot. I had some trouble working with that and wanted to try another solution. I found GitHub Actions.
 
-
-
 > GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub. Make code reviews, branch management, and issue triaging work the way you want.
 
--[https://github.com/features/actions](https://github.com/features/actions "GH Actions")
-
-
+-[https://github.com/features/actions](https://github.com/features/actions 'GH Actions')
 
 This also took me a while to figure out but I was able to get it running, eventually. My issue was regarding my environment variables. They were not pushed to my GitHub repository for security concerns and this was causing issues with getting Actions up and running.
 
-
-
 To get started with GitHub Actions, you add the below folder to your project (root) -
 
-
-
-Actual Guide: [https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow "GH Actions Workflow")
-
-
+Actual Guide: [https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow 'GH Actions Workflow')
 
 ```bash
 mkdir .github/workflows
 touch .github/workflows/tweetbot.yml
 ```
 
-
-
 I was able to schedule an action which is what I originally wanted. You can run an action on a schedule or anytime a commit is pushed to your repository, etc. I was able to run my project daily on at a scheduled time. It runs `npm install`, plugs in the env variables, and runs the server.js file. This was my first .yml file, so make sure your indentations are correct.
-
-
 
 ```yaml
 name: Tweet
 
 on:
   schedule:
-    - cron: "0 12 * * 0-6"
+    - cron: '0 12 * * 0-6'
 
 jobs:
   build:
@@ -551,42 +481,30 @@ jobs:
         run: npm run start
 ```
 
-
-
-Full source code for the project can be found here, [https://github.com/virenb/fbot](https://github.com/virenb/fbot "Fbot GitHub")
-
-
+Full source code for the project can be found here, [https://github.com/virenb/fbot](https://github.com/virenb/fbot 'Fbot GitHub')
 
 The bot can use some followers, please share with anyone you think would be interested!
 
-[https://twitter.com/footbottrivia](https://twitter.com/footbottrivia "Footbot Trivia Twitter")
+[https://twitter.com/footbottrivia](https://twitter.com/footbottrivia 'Footbot Trivia Twitter')
 
 **[Project is definitely a work in progress.]**
 
-
-
 Thank you for reading!
-
-
 
 ## Resources
 
-[Node.js](https://nodejs.org/en/ "Node.js official website")
+[Node.js](https://nodejs.org/en/ 'Node.js official website')
 
-[Puppeteer](https://pptr.dev/ "Puppeteer official website")
+[Puppeteer](https://pptr.dev/ 'Puppeteer official website')
 
-[twit - Twitter API Client](https://github.com/ttezel/twit "twit github")
+[twit - Twitter API Client](https://github.com/ttezel/twit 'twit github')
 
-[Wikipedia](https://www.wikipedia.org/ "Wikipedia.org")
+[Wikipedia](https://www.wikipedia.org/ 'Wikipedia.org')
 
-[GitHub Actions](https://github.com/features/actions "GitHub Actions website")
+[GitHub Actions](https://github.com/features/actions 'GitHub Actions website')
 
+Thank you to [Tom Baranowicz](https://github.com/tombaranowicz 'Tom Baranowicz GitHub') & [Carolyn Stransky](https://twitter.com/carolstran 'Carolyn Stransky Twitter') for sharing your Twitter projects, both were an inspiration in building this.
 
+-[https://twitter.com/hopefulcovidbot](https://twitter.com/hopefulcovidbot 'Hopeful Covid Bot Twitter')
 
-
-
-Thank you to [Tom Baranowicz](https://github.com/tombaranowicz "Tom Baranowicz GitHub") & [Carolyn Stransky](https://twitter.com/carolstran "Carolyn Stransky Twitter") for sharing your Twitter projects, both were an inspiration in building this.
-
--[https://twitter.com/hopefulcovidbot](https://twitter.com/hopefulcovidbot "Hopeful Covid Bot Twitter")
-
--[https://www.youtube.com/watch?v=1d1YSYzuRzU](https://www.youtube.com/watch?v=1d1YSYzuRzU "Puppeteer + Node.js = App That Tracks Prices on Amazon YouTube")
+-[https://www.youtube.com/watch?v=1d1YSYzuRzU](https://www.youtube.com/watch?v=1d1YSYzuRzU 'Puppeteer + Node.js = App That Tracks Prices on Amazon YouTube')

@@ -14,7 +14,7 @@
     "gatsby-plugin-canonical-urls": "^2.3.10",
     "gatsby-plugin-dark-mode": "^1.1.2",
     "gatsby-plugin-manifest": "^2.4.24",
-    "gatsby-plugin-mdx": "^1.2.35",
+    "gatsby-plugin-mdx": "^2.14.1",
     "gatsby-plugin-offline": "^3.2.24",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sharp": "^2.6.28",
